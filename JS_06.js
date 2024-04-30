@@ -2,6 +2,7 @@
 // Deben funcionar para múltiples usuarios. Que tengan por lo menos dos commits.
 
 //* Datos de usuarios
+const CARDS_CONTAINER = document.querySelector("#card-container");
 const USERS = [
      {
         id: 1,
@@ -31,25 +32,46 @@ const USERS = [
     }
 ];
 
-//* Creamos la función
-function cardUser(user) {
-    const card = document.createElement("div");
-    const name_section = document.createElement("h3") 
-    const desc_section = document.createElement("p");
-    const age_section = document.createElement("p");
-    const book_section = document.createElement("div");
+//* Creamos la función y las secciones
+function cardUser() {
+    const cardCollec = {
+        name_section: document.createElement("h3"),
+        desc_section: document.createElement("p"),
+        age_section: document.createElement("p"),
+        book_section: document.createElement("div")
+    }
+    return cardCollec;
+}
+
+
+    //* Crear tarjeta
+function insertData(dato, user) {
     const bookList = user.fav_books.books.map((e) => { 
         const item = document.createElement("ul");
         item.textContent = e;
         return item;
-        }
-    )
-
-    //* Crear tarjeta
-    name_section.textContent = user.userNumber;
-    desc_section.textContent = user.desc;
-    age_section.textContent = user.age;
-    book_section.append(...bookList);
-    card.append(name_section, desc_section, age_section, book_section)
-    return card;
+    });
+    dato.name_section.textContent = user.userNumber;
+    dato.desc_section.textContent = user.desc;
+    dato.age_section.textContent = user.age;
+    dato.book_section.append(...bookList);
+    renderCard(dato);
 }
+   
+function renderCard(cardCollec) {
+    const card = document.createElement("div");
+    card.append(
+        cardCollec.name_section, 
+        cardCollec.desc_section, 
+        cardCollec.age_section, 
+        cardCollec.book_section
+    );
+    card.className = "div-creado";
+    CARDS_CONTAINER.appendChild(card);
+}
+
+USERS.forEach((user) => {
+    const cardDat = cardUser();
+    insertData(cardDat, user);
+});
+

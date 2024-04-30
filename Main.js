@@ -11,7 +11,7 @@ const userNumberInput = userNumberInputs[0];
 console.log(p, userNumberInput);
 
 // Events
-usernameInput.addEventListener("input", (event) => {
+userNumberInput.addEventListener("input", (event) => {
     console.log(event.target.value);
     p.innerText = event.target.value;
 });
